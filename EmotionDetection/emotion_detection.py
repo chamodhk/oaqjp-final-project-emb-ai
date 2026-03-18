@@ -17,6 +17,27 @@ def emotion_detection(text_to_analyze):
         json = payload,
         headers = headers
     )
+    data = json.loads(response.text)
 
-    return json.loads(response.text)
+ 
+    emotions = data['emotionPredictions'][0]['emotion']
+
+    anger = emotions['anger']
+    disgust = emotions['disgust']
+    fear = emotions['fear']
+    joy = emotions['joy']
+    sadness = emotions['sadness']
+
+
+    dominant_emotion = max(emotions, key=emotions.get)
+    result = {
+        'anger': anger,
+        'disgust': disgust,
+        'fear': fear,
+        'joy': joy,
+        'sadness': sadness,
+        'dominant_emotion': dominant_emotion
+    }
+
+    return result
   
